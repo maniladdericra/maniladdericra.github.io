@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ManiLadder: Benchmarking Manipulation Intelligence Frontier via a Categorized and Multi-Level Task Ladder</title>
+
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+
+    <script>
+        // Task data mapping
+        var taskData = {
+            "level_1": {
+                "single_arm_gripper": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_grippers": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                },
+                "single_arm_dexterous_hand": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_dexterous_hands": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                }
+            },
+            "level_2": {
+                "single_arm_gripper": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_grippers": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                },
+                "single_arm_dexterous_hand": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_dexterous_hands": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                }
+            },
+            "level_3": {
+                "single_arm_gripper": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_grippers": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                },
+                "single_arm_dexterous_hand": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_dexterous_hands": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                }
+            },
+            "level_4": {
+                "single_arm_gripper": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_grippers": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                },
+                "single_arm_dexterous_hand": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L", "straighten_rope"]
+                },
+                "dual_arm_dexterous_hands": {
+                    "rigid_and_articulated": ["stack_block", "open_door", "pick_place_pen", "push_soccer"],
+                    "deformable": ["shape_T_to_L_dual", "straighten_rope_dual"]
+                }
+            }
+        };
+
+        function updateVideos() {
+            var level = document.getElementById("level-select").value;
+            var embodiment = document.getElementById("embodiment-select").value;
+            var object = document.getElementById("object-select").value;
+            
+            var videoContainer = document.getElementById("video-container");
+            videoContainer.innerHTML = '';
+            
+            if (level && embodiment && object && taskData[level] && taskData[level][embodiment] && taskData[level][embodiment][object]) {
+                var tasks = taskData[level][embodiment][object];
+                
+                tasks.forEach(function(task) {
+                    var videoWrapper = document.createElement("div");
+                    videoWrapper.className = "video-wrapper";
+                    
+                    var video = document.createElement("video");
+                    video.className = "demo-video";
+                    video.controls = true;
+                    video.src = `assets/videos/demos/${level}/${embodiment}/${object}/${task}.mp4`;
+                    
+                    var label = document.createElement("p");
+                    label.className = "video-label";
+                    label.textContent = task.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    
+                    videoWrapper.appendChild(video);
+                    videoWrapper.appendChild(label);
+                    videoContainer.appendChild(videoWrapper);
+                });
+            } else {
+                var placeholder = document.createElement("p");
+                placeholder.id = "video-placeholder";
+                placeholder.style.cssText = "color: #666; font-style: italic;";
+                placeholder.textContent = "Please select Level, Embodiment and Object Type to view demonstration videos";
+                videoContainer.appendChild(placeholder);
+            }
+        }
+
+
+        // Initialize after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add change event listeners for all selects
+            document.getElementById("level-select").addEventListener('change', function() {
+                // Reset subsequent selections
+                document.getElementById("embodiment-select").value = "";
+                document.getElementById("object-select").value = "";
+                updateVideos();
+            });
+            
+            document.getElementById("embodiment-select").addEventListener('change', function() {
+                // Reset subsequent selections
+                document.getElementById("object-select").value = "";
+                updateVideos();
+            });
+            
+            document.getElementById("object-select").addEventListener('change', function() {
+                updateVideos();
+            });
+        });
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="./static/css/academicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <style>
+      .content.has-text-justified p,
+      .content.has-text-justified ul,
+      .content.has-text-justified ol {
+          font-size: 120%;
+      }
+
+      .content.has-text-justified li {
+        font-size: inherit;
+      }
+      
+      .hover-card p,
+      .hover-card ul,
+      .hover-card ol {
+          font-size: 120%;
+      }
+      .hover-card li {
+        font-size: inherit;
+      }
+
+      .menu-container {
+          background: #f8f9fa;
+          padding: 2rem;
+          border-radius: 10px;
+          margin: 2rem 0;
+      }
+
+      .menu-row {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: center;
+      }
+
+      .menu-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-width: 200px;
+      }
+
+      .menu-item label {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+          color: #333;
+      }
+
+      .menu-item select {
+          width: 100%;
+          padding: 0.8rem;
+          border: 2px solid #ddd;
+          border-radius: 5px;
+          background: white;
+          font-size: 1rem;
+      }
+
+      .video-container {
+          text-align: center;
+          margin: 2rem 0;
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: center;
+          gap: 1rem;
+      }
+
+      .video-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex: 1;
+          max-width: 250px;
+      }
+
+      .demo-video {
+          max-width: 100%;
+          width: 100%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          display: block;
+      }
+
+      .video-label {
+          margin-top: 0.5rem;
+          font-size: 0.9rem;
+          font-weight: bold;
+          color: #333;
+          text-align: center;
+      }
+
+      .ladder-icon {
+          height: 1em;
+          vertical-align: middle;
+          margin: 0 0.2em;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+          .menu-row {
+              flex-direction: column;
+              gap: 1.5rem;
+          }
+          
+          .menu-item {
+              min-width: 250px;
+          }
+          
+          .publication-title {
+              font-size: 1.5rem !important;
+          }
+          
+          .video-container {
+              flex-wrap: wrap;
+          }
+          
+          .video-wrapper {
+              max-width: 200px;
+          }
+      }
+
+      /* Select box hover effects */
+      .menu-item select:hover {
+          border-color: #3273dc;
+          box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+      }
+
+      .menu-item select:focus {
+          border-color: #3273dc;
+          box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+          outline: none;
+      }
+
+      /* Video container animation */
+      .video-container {
+          transition: all 0.3s ease;
+      }
+
+      .demo-video {
+          transition: opacity 0.3s ease;
+      }
+
+      /* Loading state styles */
+      #video-placeholder {
+          padding: 2rem;
+          background: #f8f9fa;
+          border-radius: 10px;
+          border: 2px dashed #ddd;
+          transition: all 0.3s ease;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-2 publication-title">
+                        ManiLadder<img src="assets/images/ladder.png" class="ladder-icon" alt="ladder">: Benchmarking Manipulation Intelligence Frontier via a Categorized and Multi-Level Task Ladder
+                    </h1>
+
+                    <!-- <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <!-- <span class="link-block">
+                                <a target="_blank" href="#"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </span>
+                                    <span>Paper</span>
+                                </a> -->
+                            <!-- </span>
+                            <span class="link-block">
+                                <a target="_blank" href="#"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Code</span>
+                                </a>
+                            </span> -->
+                            <!-- <span class="link-block">
+                                <a target="_blank" href="#"
+                                   class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fab fa-youtube"></i>
+                                    </span>
+                                    <span>Video</span> -->
+                                <!-- </a> -->
+                            <!-- </span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container">
+        <div class="hero-body">
+            <!-- Main teaser image -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <img src="assets/images/intro.png" 
+                             style="max-width: 900px; width: 100%; height: auto; display: block; margin: 0 auto;"
+                             alt="ManiLadder Teaser Image">
+                    </div>
+                    <div class="content has-text-justified" style="max-width: 900px; margin: 0 auto;">
+                        <p style="font-size: 110%; text-align: center; color: #666; margin-top: 10px;">
+                            The <strong>ManiLadder</strong> benchmark comprises 4 difficulty levels, each with 8 task-category units combining diverse object types (rigid, articulated, deformable), end-effectors (grippers, dexterous hands), and embodiments (single-, dual-, and mobile-arm). Each unit contains 3∼4 tasks, totaling 114 simulated manipulation tasks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-light">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p style="font-size: 125%">
+                            We introduce ManiLadder, a large-scale simulation benchmark designed to quantitatively assess progress in robotic manipulation intelligence and capacity. 
+                            It turns <em>How difficult a task can my algorithm solve?</em> into a measurable ladder to climb. 
+                            ManiLadder consists of 114 simulation tasks spanning four difficulty levels, covering diverse object types (rigid, articulated, and deformable) and robot embodiments (single-arm, dual-arm, grippers, and dexterous hands). 
+                            Each task is paired with 50 high-quality human demonstrations. 
+                            To construct ManiLadder, we propose a <span style="text-decoration: underline;">M</span>etric-Anchored <span style="text-decoration: underline;">I</span>terative Task <span style="text-decoration: underline;">L</span>adder D<span style="text-decoration: underline;">E</span>sign (MILE) pipeline: tasks are tuned until their objective composite scores fall into predefined difficulty intervals, as measured by 2D- and 3D-based imitation learning policies. 
+                            Our experiments show that commonly used imitation learning algorithms achieve performance corresponding roughly to Level 2, revealing a significant gap to higher-level manipulation competence and setting clear targets for future research. We further provide preliminary results on vision-language-action (VLA) models and transfer learning.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column">
+                <h2 class="title is-3">Task Demonstration</h2>
+                
+                <!-- Menu selection area -->
+                <div class="menu-container">
+                    <div class="menu-row">
+                        <div class="menu-item">
+                            <label for="level-select">Level</label>
+                            <select id="level-select" onchange="updateVideos();">
+                                <option value="">Select Level</option>
+                                <option value="level_1">Level 1</option>
+                                <option value="level_2">Level 2</option>
+                                <option value="level_3">Level 3</option>
+                                <option value="level_4">Level 4</option>
+                            </select>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <label for="embodiment-select">Embodiment</label>
+                            <select id="embodiment-select" onchange="updateVideos();">
+                                <option value="">Select Embodiment</option>
+                                <option value="single_arm_gripper">Single-arm Gripper</option>
+                                <option value="dual_arm_grippers">Dual-arm Grippers</option>
+                                <option value="single_arm_dexterous_hand">Single-arm Dexterous Hand</option>
+                                <option value="dual_arm_dexterous_hands">Dual Arm Dexterous Hands</option>
+                            </select>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <label for="object-select">Object Type</label>
+                            <select id="object-select" onchange="updateVideos();">
+                                <option value="">Select Object Type</option>
+                                <option value="rigid_and_articulated">Rigid and Articulated</option>
+                                <option value="deformable">Deformable</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Video display area -->
+                <div id="video-container" class="video-container">
+                    <p id="video-placeholder" style="color: #666; font-style: italic;">
+                        Please select Level, Embodiment and Object Type to view demonstration videos
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-light">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <h2 class="title is-3">Conclusion</h2>
+                    <div class="content has-text-justified">
+                        <p style="font-size: 125%">
+                            In this work, we present ManiLadder, a simulation-based robot manipulation benchmark with a categorized and different difficulty-level task ladder for benchmarking the manipulation capacity of current learning-based policies. 
+                            ManiLadder encompasses 114 diverse manipulation tasks across different object types, robots, and difficulty levels. 
+                            We use MILE to assign the difficult levels for each task with objective metrics of policies trained on them. 
+                            Our results show that current mainstream imitation learning algorithms generally stay at the level 2 tasks, which shows huge improvement space for future algorithms. We envision ManiLadder as a robust experimental platform that will support and catalyze future advances in robotic manipulation research.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <section class="section hero is-light" id="BibTeX">
+    <div class="container is-max-widescreen content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@misc{maniladder2024,
+    title={ManiLadder: Benchmarking Manipulation Intelligence Frontier via a Categorized and Multi-Level Task Ladder}, 
+    author={Author1 and Author2 and Author3 and Author4},
+    year={2024},
+    eprint={XXXX.XXXXX},
+    archivePrefix={arXiv},
+    primaryClass={cs.RO},
+    url={https://arxiv.org/abs/XXXX.XXXXX}, 
+}</code></pre>
+    </div>
+</section> -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <!-- <p> Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
+                            href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p> -->
+                    <p>Thanks for your visiting😊!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
