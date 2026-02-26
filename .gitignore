@@ -1,0 +1,103 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Conda environments
+*.conda
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# macOS / Linux system files
+.DS_Store
+Thumbs.db
+
+# Logs and outputs
+*.log
+*.out
+*.err
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.spec
+
+# Unit test cache
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Datasets or large files (if tracked outside Git LFS)
+data/
+datasets/
+checkpoints/
+weights/
+*.ckpt
+*.pth
+*.pt
+*.h5
+*.npz
+*.onnx
+
+# Notebook output
+*.nbconvert.ipynb
+
+# MyPy / Pyright / pylint type checker outputs
+.mypy_cache/
+.pyright/
+.pyre/
+
+# Ignore secrets or user configs
+*.secret
+*.key
+*.pem
+*.env
+.env.*
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+*~
+
+test_videos/
+trajectories/
+test/test_simple.py
+tele_videos/
+
+test/test_base_env.py
+test/test_env.py
+
+maniladder/utils/types.py
+
+test/sensor_data_pickle/
+maniladder/algos/DiffusionPolicy/wandb/
+maniladder/algos/DiffusionPolicy/runs/
+*.pth
+*.pt
+*.mp4
+*.png
+
+website.zip
