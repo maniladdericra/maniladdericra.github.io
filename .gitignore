@@ -97,7 +97,6 @@ maniladder/algos/DiffusionPolicy/wandb/
 maniladder/algos/DiffusionPolicy/runs/
 *.pth
 *.pt
-*.mp4
 *.png
 
 website.zip
