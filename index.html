@@ -188,7 +188,7 @@ const VIDEO_DATA = {
         single_arm_gripper: {
             1: ["OpenDoor-V1", "PickPlacePen-V1", "PushSoccer-V1", "StackBlock-V1"],
             2: ["KitAssembly-v1", "OpenBoxRetrieval-v1", "PivotBook-v1", "HangMug-v1"],
-            3: ["GroceryPrepare-v1", "MazeBallPush-v1", "PushTargetPose-v1", "Stack8Blocks-v1"],
+            3: ["GroceryPrepare-v1", "MazeBallPush-v1", "MazeBlockPush-v1", "PushTargetPose-v1", "Stack8Blocks-v1", "Stack6Blocks-v1"],
             4: ["FlipPan-v1", "HitBilliard-v1", "PingPongBallTransport-v1", "RingTossing-v1"]
         },
         single_arm_dexterous: {
@@ -204,8 +204,8 @@ const VIDEO_DATA = {
             4: ["DualArmBallClassify-v1", "DualArmBilliardBridge-v1", "DualArmOrganizeCabinet-v1", "DualArmRubikCube-v1"]
         },
         dual_arm_dexterous: {
-            1: ["DualArmOpenPen-v1", "DualArmOpenScissor-v1", "DualArmPressButton-v1", "DualArmSwingCup-v1"],
-            2: ["DualArmFlipTable-v1", "DualArmOpenBottle-v1", "DualArmOpenLaptop-v1", "DualArmThrowBall-v1"],
+            1: ["DualArmOpenPen-v1", "DualArmOpenScissor-v1", "DualArmPressButton-v1", "DualArmSwingCup-v1", "DualArmPickCup-v1"],
+            2: ["DualArmFlipTable-v1", "DualArmOpenBottle-v1", "DualArmOpenLaptop-v1", "DualArmThrowBall-v1", "DualArmThrowBlock-v1"],
             3: ["DualArmPingpongBalance-v1", "DualArmPlugCharger-v1", "DualArmSetupTable-v1"],
             4: ["DualArmJugglingBall-v1", "DualArmKeyboardType-v1", "DualArmSendPingPong-v1", "DualArmShootBasketball-v1"]
         }
@@ -259,14 +259,14 @@ const TASKS_WITH_VIDEO = new Set([
     "OpenDoor-V1", "PickPlacePen-V1", "PushSoccer-V1", "StackBlock-V1",
     "GraspCylinder-v1", "LiftBucket-v1", "ReorientCube-v1", "TurnOnFaucet-v1",
     "DualArmButtonPress-v1", "DualArmHammerHandover-v1", "DualArmLiftBall-v1", "DualArmPushBox-v1",
-    "DualArmOpenPen-v1", "DualArmOpenScissor-v1",
+    "DualArmOpenPen-v1", "DualArmOpenScissor-v1", "DualArmPickCup-v1",
     // Rigid body - Level 2
     "KitAssembly-v1", "OpenBoxRetrieval-v1", "PivotBook-v1", "HangMug-v1",
     "GraspTwoBlocks-v1", "HammerNail-v1", "DexOpenDoor-v1", "ReorientPen-v1",
     "DualArmBookPickPlace-v1", "DualArmCleanupPotEnv-v1", "DualArmPeginHole-v1",
-    "DualArmFlipTable-v1", "DualArmOpenLaptop-v1",
+    "DualArmFlipTable-v1", "DualArmOpenLaptop-v1", "DualArmThrowBlock-v1",
     // Rigid body - Level 3
-    "MazeBallPush-v1", "PushTargetPose-v1",
+    "MazeBallPush-v1", "MazeBlockPush-v1", "PushTargetPose-v1", "Stack6Blocks-v1",
     "ClutterGrasp-v1", "HammerNailOut-v1", "TweezersPickPlace-v1",
     // Rigid body - Level 4
     "FlipPan-v1", "RingTossing-v1",
