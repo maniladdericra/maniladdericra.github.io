@@ -253,38 +253,27 @@ const TYPE_LABELS = {
 const CATEGORIES = ["single_arm_gripper", "single_arm_dexterous", "dual_arm_gripper", "dual_arm_dexterous"];
 const TYPES = ["rigid_body", "deformable_object"];
 
-// Tasks that have real video files (copied from real_videos)
+// Tasks that have orbit videos in /mnt/gck/maniladder_dataset_orbit_all
 const TASKS_WITH_VIDEO = new Set([
     // Rigid body - Level 1
     "OpenDoor-V1", "PickPlacePen-V1", "PushSoccer-V1", "StackBlock-V1",
     "GraspCylinder-v1", "LiftBucket-v1", "ReorientCube-v1", "TurnOnFaucet-v1",
     "DualArmButtonPress-v1", "DualArmHammerHandover-v1", "DualArmLiftBall-v1", "DualArmPushBox-v1",
-    "DualArmOpenPen-v1", "DualArmOpenScissor-v1", "DualArmPickCup-v1",
+    "DualArmOpenPen-v1", "DualArmOpenScissor-v1", "DualArmPressButton-v1", "DualArmSwingCup-v1",
+    "DualArmPickCup-v1",
     // Rigid body - Level 2
     "KitAssembly-v1", "OpenBoxRetrieval-v1", "PivotBook-v1", "HangMug-v1",
     "GraspTwoBlocks-v1", "HammerNail-v1", "DexOpenDoor-v1", "ReorientPen-v1",
-    "DualArmBookPickPlace-v1", "DualArmCleanupPotEnv-v1", "DualArmPeginHole-v1",
-    "DualArmFlipTable-v1", "DualArmOpenLaptop-v1", "DualArmThrowBlock-v1",
+    "DualArmBookPickPlace-v1", "DualArmCleanupPotEnv-v1", "DualArmDoubleDoorBox-v1", "DualArmPeginHole-v1",
+    "DualArmOpenBottle-v1", "DualArmOpenLaptop-v1", "DualArmThrowBlock-v1",
     // Rigid body - Level 3
-    "MazeBallPush-v1", "MazeBlockPush-v1", "PushTargetPose-v1", "Stack6Blocks-v1",
-    "ClutterGrasp-v1", "HammerNailOut-v1", "TweezersPickPlace-v1",
+    "GroceryPrepare-v1", "MazeBlockPush-v1", "PushTargetPose-v1", "Stack6Blocks-v1",
+    "HammerNailOut-v1", "TweezersPickPlace-v1", "DualArmFoldCarton-v1", "DualArmMahjongSetup-v1",
+    "DualArmOpenFridge-v1", "DualArmMakeLine-v1", "DualArmPingpongBalance-v1", "DualArmPlugCharger-v1",
     // Rigid body - Level 4
-    "FlipPan-v1", "RingTossing-v1",
-    "RodThroughHoles-v1", "TennisRally-v1",
+    "FlipPan-v1",
     // Deformable object - Level 1
-    "StraightenRope-v1", "UnfoldHandkerchief-v1", "UnfoldShirt-v1", "ShapeTToI-v1",
-    "RopePalmCageHoldDex-v1", "SqueezeClay-v1",
-    "RopeCylinderWarpping-v1", "PouringWater-v1",
-    "RopeStretch-v1", "CoverCloth-v1", "LiftSoftDex-v1",
-    // Deformable object - Level 2
-    "StraightenTwoRopesSequential-v1", "FoldShirt-v1", "ScoopWater-v1",
-    "RopeBridgeDex-v1", "ClothWipe-v1", "RollingPin-v1",
-    "StraightenRopeDual-v1", "ClothAlign-v1", "PushObject-v1",
-    // Deformable object - Level 3
-    "SeparateTwoRopesEnv-v1", "LiquidMeasuring-v1",
-    "HitBoxEnv-v1", "BagDropIn-v1", "PickSoftFromClutter-v5",
-    // Deformable object - Level 4
-    "BuildTent-v1"
+    "StraightenRope-v1", "UnfoldShirt-v1", "ShapeTToI-v1", "RopePalmCageHoldDex-v1",
 ]);
 
 function prettify(name) {
